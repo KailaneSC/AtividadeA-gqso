@@ -18,10 +18,24 @@ public class Soma {
             
             return Double.toString(soma);
             
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException NumberEF) {
+
+                throw new BadRequestException(String.format("Parâmetro inválido: %s", op1));
+            } else if(isInvalid(op1) == false && isInvalid(op2)){
+                throw new BadRequestException(String.format("Parâmetro inválido: %s", op2));
+            } 
 
             throw new BadRequestException(String.format("Parâmetros inválidos: \\%s\\%s", op1, op2));
         }
         
+    }
+
+    private Boolean isInvalid(String numero){
+        try{
+            Double.parseDouble(numero);
+            return false;
+        }catch(NumberFormatException NumberFE){
+            return true;
+        }
     }
 }
